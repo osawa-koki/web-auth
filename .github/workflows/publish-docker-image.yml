@@ -2,7 +2,8 @@ name: Build Docker image and push to Docker Hub
 
 on:
   push:
-    branches: main
+    tags:
+      - "*"
 
 jobs:
   build-and-push:
@@ -10,16 +11,18 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-
+      - name: get tag name
+        id: get-tag-name
+        run: echo "tag-name=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
       - name: Log in to Docker Hub
         uses: docker/login-action@v2.0.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/web-auth:0.0.0
+          # タグ名をバージョンとして指定する
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/web-auth:${{ steps.get-tag-name.outputs.tag-name }}
