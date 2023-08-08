@@ -21,3 +21,12 @@ docker run -d -p 8000:80 -v $(pwd)/www:/usr/local/apache2/htdocs/ --rm --name we
 # インタラクティブ起動
 docker run -it -p 8000:80 -v $(pwd)/www:/usr/local/apache2/htdocs/ --rm --name web-auth web-auth
 ```
+
+---
+
+それぞれ、以下のURLでアクセスできます。  
+
+- <http://localhost:8000/basic/>
+- <http://localhost:8000/digest/>
+
+ユーザ名は`user`、パスワードは`password`です。  
