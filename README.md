@@ -4,6 +4,11 @@
 
 ![成果物](./docs/img/fruit.gif)  
 
+## 実装した認証
+
+- Basic認証
+- Digest認証
+
 ## 実行方法
 
 ```shell
